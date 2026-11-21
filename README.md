@@ -4,6 +4,8 @@ A small web app for a (fictional) home-cleaning business. Customers pick a servi
 
 Built with plain HTML, CSS and JavaScript (no frameworks), accessible to WCAG 2.2 AA.
 
+**Live demo:** [allankoaik.github.io/quote-calculator](https://allankoaik.github.io/quote-calculator/)
+
 ## Pricing rules
 
 | Choice | Price |
