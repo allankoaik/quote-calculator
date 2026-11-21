@@ -1,0 +1,441 @@
+/* ---------- Design tokens (light and dark) ---------- */
+:root {
+  color-scheme: light dark;
+
+  --bg: light-dark(#f4f7f7, #0f1a1c);
+  --surface: light-dark(#ffffff, #172427);
+  --text: light-dark(#1b2a2d, #e6eeef);
+  --muted: light-dark(#4d6064, #a9bbbe);
+  --border: light-dark(#767676, #8a9a9d);
+  --line: light-dark(#d7e1e2, #2c3d41);
+  --brand: light-dark(#0b6e70, #5cc8c4);
+  --brand-strong: light-dark(#084f51, #8fdcd8);
+  --on-brand: light-dark(#ffffff, #0f1a1c);
+  --brand-tint: light-dark(#e3f2f1, #1d3436);
+  --error: light-dark(#b3261e, #ffb4ab);
+  --error-tint: light-dark(#fdecea, #3a1d1b);
+  --focus: light-dark(#0b57d0, #a8c7fa);
+
+  --radius: 0.75rem;
+  --space: 1rem;
+}
+
+/* ---------- Base ---------- */
+/* Keep the hidden attribute working on elements that set their own display */
+[hidden] {
+  display: none !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  accent-color: var(--brand);
+}
+
+h1,
+h2 {
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.container {
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.visually-hidden:where(:not(:focus-within, :active)) {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-start: -10rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius);
+  z-index: 10;
+}
+
+.skip-link:focus {
+  inset-block-start: 1rem;
+}
+
+/* ---------- Header and footer ---------- */
+.site-header {
+  background: var(--surface);
+  border-block-end: 1px solid var(--line);
+}
+
+.brand {
+  margin: 0;
+  padding-block: 1rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--brand-strong);
+}
+
+.brand-mark {
+  color: var(--brand);
+}
+
+.site-footer {
+  margin-block-start: 3rem;
+  padding-block: 1.5rem;
+  border-block-start: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* ---------- Intro ---------- */
+.intro {
+  padding-block: 2rem 1.5rem;
+  max-width: 40rem;
+}
+
+.intro h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+}
+
+.intro p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* ---------- Layout: options + sticky summary ---------- */
+.quote-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.options {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 56rem) {
+  .quote-layout {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    align-items: start;
+  }
+
+  .summary {
+    position: sticky;
+    inset-block-start: 1rem;
+  }
+}
+
+/* ---------- Cards and fieldsets ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+fieldset.card {
+  margin: 0;
+  min-width: 0;
+}
+
+legend {
+  float: left; /* puts the legend inside the card's padding */
+  width: 100%;
+  margin-block-end: 1rem;
+  padding: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+legend + * {
+  clear: both;
+}
+
+.legend-note {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* ---------- Radio and checkbox choices ---------- */
+.choice-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 36rem) {
+  .choice-list--grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.choice {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) - 0.25rem);
+}
+
+.choice:has(:checked) {
+  border-color: var(--brand);
+  background: var(--brand-tint);
+}
+
+.choice input {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.15rem 0 0;
+}
+
+.choice label {
+  flex: 1;
+  cursor: pointer;
+}
+
+/* Make the whole card clickable without changing the DOM order */
+.choice label::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.choice-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  font-weight: 600;
+}
+
+.choice-hint {
+  display: block;
+  margin-block-start: 0.25rem;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.price {
+  font-variant-numeric: tabular-nums;
+}
+
+.badge {
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+/* ---------- Text fields ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25rem;
+  margin-block-end: 1.25rem;
+}
+
+.field:last-child {
+  margin-block-end: 0;
+}
+
+.field-row {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 30rem) {
+  .field-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .field-row .field {
+    margin-block-end: 0;
+  }
+}
+
+.field label {
+  font-weight: 600;
+}
+
+input:not([type="radio"], [type="checkbox"]),
+select,
+textarea {
+  font: inherit;
+  font-size: max(1rem, 1em);
+  min-height: 48px;
+  padding: 0.625rem 0.75rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.card > .hint {
+  margin-block-end: 1rem;
+}
+
+/* ---------- Validation (only after the user interacts) ---------- */
+.error-msg {
+  display: none;
+  margin: 0;
+  color: var(--error);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+:is(input, select, textarea):user-invalid {
+  border-color: var(--error);
+  border-width: 2px;
+  background: var(--error-tint);
+}
+
+:is(input, select, textarea):user-invalid ~ .error-msg {
+  display: block;
+}
+
+/* ---------- Summary ---------- */
+.summary h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.breakdown {
+  margin: 0 0 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.breakdown div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.breakdown dt {
+  color: var(--muted);
+}
+
+.breakdown dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.breakdown .is-discount dd {
+  color: var(--brand-strong);
+  font-weight: 600;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0 0 0.5rem;
+  padding-block-start: 1rem;
+  border-block-start: 1px solid var(--line);
+}
+
+.total-label {
+  font-weight: 600;
+}
+
+.total output {
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--brand-strong);
+}
+
+/* ---------- Buttons ---------- */
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  margin-block-start: 1rem;
+  padding: 0.75rem 1.25rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--on-brand);
+  background: var(--brand);
+  border: 2px solid var(--brand);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--brand-strong);
+  border-color: var(--brand-strong);
+}
+
+.button--secondary {
+  width: auto;
+  color: var(--brand-strong);
+  background: transparent;
+}
+
+.button--secondary:hover {
+  color: var(--on-brand);
+}
+
+/* ---------- Confirmation ---------- */
+.confirmation {
+  max-width: 40rem;
+}
+
+.confirmation h2 {
+  margin-block-start: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .choice {
+    transition: background-color 0.15s, border-color 0.15s;
+  }
+}
