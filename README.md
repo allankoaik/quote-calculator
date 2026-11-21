@@ -35,6 +35,11 @@ Discount applies to the whole total. Example: deep clean, 3 bedrooms, 2 bathroom
 - Errors appear only after the customer has interacted with a field (`:user-invalid`), and `aria-invalid` is kept in sync for screen readers.
 - After a successful request, focus moves to the confirmation heading.
 
+## Testing
+
+- **Lighthouse** (21 Nov 2026, live site): Accessibility **100**, SEO **100**, Best practices 96 (fixed since: missing favicon), Performance 87–90.
+- **Manual checklist** for keyboard, NVDA, zoom and contrast themes: [TESTING.md](TESTING.md)
+
 ## Running locally
 
 No build step. Serve the folder with any static server, for example:
